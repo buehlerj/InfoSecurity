@@ -2,16 +2,35 @@
 public class RSA {
 
 	public static void main(String[] args) {
-		gcd_equals(59, 10200, 1);
-		gcd_equals(500, 21, 1);
-//		System.out.println(gcd(73546,19712));
-//		System.out.println(gcd(73546,19509));
-//		System.out.println(gcd(100, 9));
-//		System.out.println(gcd(0, 5));
-//		System.out.println(gcd(-2, 8));
+		// gcd_equals(59, 10200, 1);
+		// gcd_equals(500, 21, 1);
+		// System.out.println(gcd(73546,19712));
+		// System.out.println(gcd(73546,19509));
+		// System.out.println(gcd(100, 9));
+		// System.out.println(gcd(0, 5));
+		// System.out.println(gcd(544-3, 295927));
+		fermatFactorization(1476221);
 	}
 
-	public static int gcd (int a, int b) {
+	public static int[] fermatFactorization(int n) {
+		for (int y = 0; y < Math.pow(2, 32); y++) {
+			double xd = Math.sqrt(n + Math.pow(y, 2));
+			if (xd == Math.floor(xd)) {
+				int x = (int) xd;
+				int d = gcd(x - y, n);
+				if (d != 1) {
+					int[] answer = new int[2];
+					answer[0] = x;
+					answer[1] = y;
+					System.out.println(x + "^2 = " + y + "^2 mod " + n + " ------ factor: " + d);
+					return answer;
+				}
+			}
+		}
+		return null;
+	}
+
+	public static int gcd(int a, int b) {
 		a = Math.abs(a);
 		b = Math.abs(b);
 		if (b > a) {
